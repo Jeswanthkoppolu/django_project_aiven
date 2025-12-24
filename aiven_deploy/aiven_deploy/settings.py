@@ -14,9 +14,11 @@ from pathlib import Path
 from dotenv import load_dotenv
 import os
 
+
 load_dotenv()#this will loads all the variables from env to here
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
+
 
 
 # Quick-start development settings - unsuitable for production
@@ -77,20 +79,21 @@ WSGI_APPLICATION = 'aiven_deploy.wsgi.application'
 # https://docs.djangoproject.com/en/6.0/ref/settings/#databases
 
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.mysql',
-        'HOST': os.getenv("DB_HOST"),
-        'PORT': os.getenv("DB_PORT"),
-        'USER': os.getenv("DB_USER"),
-        'PASSWORD': os.getenv("DB_PASSWORD"),
-        'NAME': os.getenv("DB_NAME"),
-        'OPTIONS': {
-            'ssl': {
-                'ca': os.path.join(BASE_DIR, 'aivens_ca.pem')
+    "default": {
+        "ENGINE": "django.db.backends.mysql",
+        "HOST": os.getenv("DB_HOST"),
+        "PORT": int(os.getenv("DB_PORT")),
+        "USER": os.getenv("DB_USER"),
+        "PASSWORD": os.getenv("DB_PASSWORD"),
+        "NAME": os.getenv("DB_NAME"),
+        "OPTIONS": {
+            "ssl": {
+                "ca": BASE_DIR / "ca.pem"
             }
         }
     }
 }
+
 
 # Password validation
 # https://docs.djangoproject.com/en/6.0/ref/settings/#auth-password-validators
